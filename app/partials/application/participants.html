@@ -1,0 +1,30 @@
+<div ng-controller="AppPartyCtrl">
+    <fieldset>
+        <legend>Информация об участниках</legend>
+        <div class="partyGridStyle" ng-grid="gridOptions">
+        </div>
+        <button class="btn" ng-click="create()">Добавить</button>
+        <button class="btn" ng-click="edit()">Редактировать</button>
+        <button class="btn" ng-click="remove()">Удалить</button>
+        <br><span>{{partySelections[0]}}</span>
+    </fieldset>
+    <div id="addModal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-body">
+            <fieldset>
+                <legend>Новый участник</legend>
+                <label>Фамилия</label>
+                <input type="text" ng-model="currentParty.lastName"/>
+                <label>Имя</label>
+                <input type="text" ng-model="currentParty.firstName"/>
+                <label>Отчество</label>
+                <input type="text" ng-model="currentParty.middleName"/>
+                <label>Возраст</label>
+                <input type="text" ng-model="currentParty.age"/>
+            </fieldset>
+        </div>
+        <div class="modal-footer">
+            <div class="btn" ng-click="cancel()">Отменить</div>
+            <div class="btn btn-primary" ng-click="save()">Сохранить</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<div ng-controller="TaskCtrl">
+    <fieldset>
+        <legend>Задачи в работе</legend>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span2 btn" ng-click="updateTaskData()"><i class="icon-repeat"></i>Обновить
+                </div>
+                <div class="span2 btn" ng-click="cleanTaskData()"><i class="icon-remove"></i>Очистить</div>
+            </div>
+            <div class="row-fluid">
+                <div class="taskGridStyle" ng-grid="taskGridOptions"></div>
+            </div>
+        </div>
+    </fieldset>
+</div>

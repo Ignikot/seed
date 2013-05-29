@@ -1,0 +1,37 @@
+<form class="form-inline" novalidate ng-controller="AppInputCtrl">
+    <fieldset>
+        <legend>Ввод заявки</legend>
+        <div class="controls controls-row">
+            <label class="span2">Номер</label>
+            <span class="span2 uneditable-input">{{application.number}}</span>
+            <label class="span2">Дата регистрации заявки</label>
+            <span class="span2 uneditable-input">{{application.regdate}}</span>
+            <label class="span2">Срок действия решения</label>
+            <span class="span2 uneditable-input">{{application.decisionterm}}</span>
+        </div>
+        <div class="controls controls-row">
+            <label class="span2">Продукт</label>
+            <span class="span2 uneditable-input">{{application.product}}</span>
+            <label class="span2">Точка продаж</label>
+        </div>
+        <div class="controls controls-row">
+            <span class="span2 uneditable-input">{{application.salespoint}}</span>
+        </div>
+        <tabs>
+            <pane heading="Участники">
+                <div ng-include src="'partials/application/participants.html'"></div>
+            </pane>
+            <pane heading="Информация о кредите">
+                <div ng-include src="'partials/application/creditinfo.html'"></div>
+            </pane>
+            <pane heading="Документы клиента">
+                <div ng-include src="'partials/application/customerdocs.html'"></div>
+            </pane>
+            <pane heading="Сообщения">
+                <div ng-include src="'partials/application/appmessages.html'"></div>
+            </pane>
+        </tabs>
+        <button type="reset" class="btn">Cancel</button>
+        <button type="submit" class="btn">Submit</button>
+    </fieldset>
+</form>

@@ -28,7 +28,13 @@
         }
 
         .partyGridStyle {
-            border: 1px solid rgb(212,212,212);
+            border: 1px solid rgb(212, 212, 212);
+            width: 800px;
+            height: 200px
+        }
+
+        .taskGridStyle {
+            border: 1px solid rgb(212, 212, 212);
             width: 800px;
             height: 200px
         }
@@ -42,6 +48,7 @@
     <link rel="stylesheet" href="assets/seed.css"/>
     <link rel="stylesheet" href="assets/select2.css"/>
     <link rel="stylesheet" href="lib/ng-grid/ng-grid.css"/>
+    <link rel="stylesheet" href="assets/login.css"/>
 
 
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
@@ -50,112 +57,107 @@
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
     <link rel="shortcut icon" href="../assets/ico/favicon.png">
 </head>
-<body>
-
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="brand" href="#">Project name</a>
-
-            <div class="nav-collapse collapse">
-                <ul class="nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-            <!--/.nav-collapse -->
-        </div>
-    </div>
-</div>
-
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span3 sidebar-nav">
-            <accordion close-others="false">
-                <accordion-group heading="Кредитный конвеер">
-                    <ul class="nav nav-list">
-                        <li class="nav-header">Операции над заявками</li>
-                        <li class="active"><a href="#">Заявки в работе</a></li>
-                        <li><a href="#">Поиск заявки</a></li>
-                    </ul>
-                </accordion-group>
-                <accordion-group heading="Единое окно">
-                    <div class="sidebar-nav">
-                        <ul class="nav nav-list">
-                            <li class="nav-header">Sidebar</li>
-                            <li class="active"><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li class="nav-header">Sidebar</li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                        </ul>
-                    </div>
-                    <!--/.well -->
-                </accordion-group>
-            </accordion>
-        </div>
-
-        <div class="span9" >
-            <form class="form-inline" novalidate ng-controller="AppInputCtrl">
-                <fieldset>
-                    <legend>Ввод заявки</legend>
-                    <div class="controls controls-row">
-                        <label class="span2">Номер</label>
-                        <span class="span2 uneditable-input">{{application.number}}</span>
-                        <label class="span2">Дата регистрации заявки</label>
-                        <span class="span2 uneditable-input">{{application.regdate}}</span>
-                        <label class="span2">Срок действия решения</label>
-                        <span class="span2 uneditable-input">{{application.decisionterm}}</span>
-                    </div>
-                    <div class="controls controls-row">
-                        <label class="span2">Продукт</label>
-                        <span class="span2 uneditable-input">{{application.product}}</span>
-                        <label class="span2">Точка продаж</label>
-                        <span class="span2 uneditable-input">{{application.salespoint}}</span>
-                    </div>
-                    <tabs>
-                        <pane heading="Участники">
-                            <div ng-include src="'partials/participants.html'"></div>
-                        </pane>
-                        <pane heading="Информация о кредите">
-                            <div ng-include src="'partials/creditinfo.html'"></div>
-                        </pane>
-                        <pane heading="Документы клиента">
-                            <div ng-include src="'partials/customerdocs.html'"></div>
-                        </pane>
-                        <pane heading="Сообщения">
-                            <div ng-include src="'partials/appmessages.html'"></div>
-                        </pane>
-                    </tabs>
-                    <button type="reset" class="btn">Cancel</button>
-                    <button type="submit" class="btn">Submit</button>
-                </fieldset>
+<body ng-controller="LoginCtrl">
+<div id="login-holder" ng-hide="isLogged">
+    <div id="loginbox">
+        <div id="login-inner">
+            Введите логин и пароль.<br>&nbsp;
+            <form ng-submit="submit()">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th>Логин</th>
+                        <td><input type="text" class="login-inp" ng-model="username"/></td>
+                    </tr>
+                    <tr>
+                        <th>Пароль</th>
+                        <td><input type="password" class="login-inp" ng-model="password"/></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td><input type="submit" class="submit-login" value="Войти в систему" ng-click="login()"/></td>
+                    </tr>
+                </table>
             </form>
         </div>
-    </div>
-</div>
-<!--/.fluid-container-->
-<div class="navbar-fixed-bottom row-fluid">
-    <div class="navbar-inner">
-        <div class="container">
-            <p>&copy; Neoflex 2013</p>
-        </div>
+        <div class="clear"></div>
     </div>
 </div>
 
+<div ng-show="isLogged">
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="#">Neoflex FrontOffice</a>
+
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li class="active"><a href="#">Домашняя страница</a></li>
+                        <li><a href="#about">О программе</a></li>
+                        <li><a href="#help">Справка</a></li>
+                        <li><a ng-click="logout()">Выход из системы</a></li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span3 sidebar-nav">
+                <accordion close-others="false">
+                    <accordion-group heading="Кредитный конвеер">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">Операции над заявками</li>
+                            <li><a href="#applicationinput">Ввод заявки</a></li>
+                            <li><a href="#work">Задачи в работе</a></li>
+                            <li><a href="#search">Поиск заявки</a></li>
+                        </ul>
+                    </accordion-group>
+                    <accordion-group heading="Единое окно">
+                        <div class="sidebar-nav">
+                            <ul class="nav nav-list">
+                                <li class="nav-header">Sidebar</li>
+                                <li class="active"><a href="#">Link</a></li>
+                                <li><a href="#">Link</a></li>
+                                <li class="nav-header">Sidebar</li>
+                                <li><a href="#">Link</a></li>
+                                <li><a href="#">Link</a></li>
+                            </ul>
+                        </div>
+                        <!--/.well -->
+                    </accordion-group>
+                </accordion>
+            </div>
+            <div class="span9">
+                <div ng-view></div>
+            </div>
+        </div>
+    </div>
+    <!--/.fluid-container-->
+    <div class="navbar-fixed-bottom row-fluid">
+        <div class="navbar-inner">
+            <div class="container">
+                <p>&copy; Neoflex 2013</p>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+<script src="lib/bootstrap/bootstrap.min.js"></script>
+<script src="lib/angularjs/angular.js"></script>
+<script src="lib/angularjs/angular-resource.js"></script>
 <script src="lib/ui-bootstrap/ui-bootstrap-tpls-0.2.0.min.js"></script>
 <script src="lib/ng-grid/ng-grid.min.js"></script>
 <script src="assets/select2.js"></script>
 <script src="assets/ui-select2.js"></script>
 <script src="assets/plunker.js"></script>
+<script src="lib/http-auth-interceptor/http-auth-interceptor.js" type="text/javascript"></script>
 
 <script src="js/services.js"></script>
 <script src="js/filters.js"></script>
